@@ -21,6 +21,7 @@ public class Wanderer extends Player {
     this.strength = 6;
     this.intelligence = 4;
     this.physicalDefence = 0;
+    this.karma = 0;
   }
 
   @Override

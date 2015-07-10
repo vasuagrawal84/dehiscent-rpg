@@ -20,6 +20,7 @@ public abstract class Player {
 
   protected int hp, xp, gold;
   protected int physicalDefence;
+  protected int karma; //hidden stat
   protected int vitality, strength, dexterity, intelligence;
   protected int tempVitality, tempStrength, tempDexterity, tempIntelligence;
   protected Map<String, EquipSlot> equipSlots;
@@ -182,6 +183,14 @@ public abstract class Player {
 
   public void addPhysDef(int x) {
     physicalDefence += x;
+  }
+  
+  public void addKarma(int x) {
+	  karma += x;
+  }
+  
+  public void subKarma(int x) {
+	  karma -= x;
   }
 
   /**

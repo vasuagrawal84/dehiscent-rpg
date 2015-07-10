@@ -142,6 +142,7 @@ public class Dehiscent {
     overworld.setCell(1, 1, new LittleGrocerShop());
     overworld.setCell(-1, 1, new ALittleSomethinSomethin());
     overworld.setCell(1, -1, new NuisancePig());
+    overworld.setCell(1, 2, new DrunkenDog());
     return overworld;
   }
 
