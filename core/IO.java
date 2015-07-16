@@ -22,7 +22,7 @@ public class IO {
    * The standard length of a bordered box
    * (for example, item descriptions).
    */
-  public final static int BOX_WIDTH = 60;
+  public final static int BOX_WIDTH = 80;
 
   /**
    * Fetches some input from the console, usually

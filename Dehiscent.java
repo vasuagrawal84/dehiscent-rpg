@@ -1,4 +1,4 @@
-import classes.Wanderer;
+import classes.*;
 import core.IO;
 import core.Player;
 import map.Map;
@@ -30,10 +30,19 @@ public class Dehiscent {
     System.setOut(IO.getNullPrintStream());
 
     Map overworld = createMap();
-    Player p = new Wanderer();
+    Player p = null;
 
     // Resume console output
     System.setOut(new PrintStream(realSystemOut));
+	
+    while(p == null) {
+    	String chosenClass = chooseClass();
+		if(chosenClass.contains("wanderer")) {
+			p = new Wanderer();
+		} else if(chosenClass.contains("ninja")) {
+			p = new Ninja();
+		}
+	}
 
     for (; ; ) {
       overworld.printKnownMap(p);
@@ -179,5 +188,82 @@ public class Dehiscent {
             IO.formatBanner(IO.BOX_WIDTH) +
             IO.formatColumns(IO.BOX_WIDTH, true, true, "[0-9]", "", "Select menu options") +
             IO.formatBanner(IO.BOX_WIDTH);
+  }
+    
+  /**
+   * Prints a table of the classes (Wanderer, Ninja etc.) and asks one the player wants to use. 
+   * Asks if the player wants to view the items for the class and if they want to confirm the choice.
+   * 
+   * @return a string containing the confirmed choice of class.
+   */
+    public static String chooseClass() {
+    
+      //Disable console output so temp player object initialisation isn't shown to player
+      OutputStream realSystemOut = System.out;
+      System.setOut(IO.getNullPrintStream());
+	  Player wanderer = new Wanderer();
+	  Player ninja = new Ninja();
+	  System.setOut(new PrintStream(realSystemOut));
+	  
+	  //Create a string that contains a new table showing the stats of the class
+	  String classTable = IO.formatBanner(IO.BOX_WIDTH) + 
+	  IO.formatColumns(IO.BOX_WIDTH, true, true, "CLASS", "VITALITY", "DEXTERITY", "STRENGTH", "INTELLIGENCE", "PHYS DEFENCE") + 
+	  IO.formatBanner(IO.BOX_WIDTH) + 
+	  IO.formatColumns(IO.BOX_WIDTH, true, true, "Wanderer", 
+			  checkStatLevel(wanderer.getBaseVit()), 
+			  checkStatLevel(wanderer.getBaseDex()), 
+			  checkStatLevel(wanderer.getBaseStr()), 
+			  checkStatLevel(wanderer.getBaseInt()), 
+			  checkStatLevel(wanderer.getPhysDef())) +
+	  IO.formatColumns(IO.BOX_WIDTH, true, true, "Ninja", 
+			  checkStatLevel(ninja.getBaseVit()), 
+			  checkStatLevel(ninja.getBaseDex()), 
+			  checkStatLevel(ninja.getBaseStr()), 
+			  checkStatLevel(ninja.getBaseInt()), 
+			  checkStatLevel(ninja.getPhysDef())) +
+	  IO.formatBanner(IO.BOX_WIDTH);
+	  
+	  // Confirm whether the player wants to view the starting items and if they
+	  // want to choose the class
+	  for( ; ; ) {
+		  IO.println(classTable);
+		  
+		  String chosenClass = IO.getDecision("Choose a class... ");
+		  
+		  while(!(chosenClass.toLowerCase().contains("wanderer") || chosenClass.toLowerCase().contains("ninja"))) {
+			  IO.println("Class not recognised.");
+			  IO.getDecision("Choose a class");
+		  }
+		  
+		  if(IO.getAffirmative("Would you like to view " + chosenClass + "'s starting items?")) {
+			  if(chosenClass.contains("wanderer")) {
+				  IO.println(wanderer.equippedToString());
+				  IO.println(wanderer.inventoryToString());
+			  } else if(chosenClass.contains("ninja")) {
+				  IO.println(ninja.equippedToString());
+				  IO.println(ninja.inventoryToString());
+			  }
+		  }
+		  
+		  if(IO.getAffirmative("Choose " + chosenClass + "?")) {
+			  return chosenClass;
+		  }
+	  }
+	  
+  }
+  
+    /**
+     * Checks which range (High, Average, Low) the player's base stat is in.
+     * @param stat is the integer value of the stat in question.
+     * @return a string containing the range (High, Average, Low).
+     */
+  public static String checkStatLevel(int stat) {
+	  if(stat > 7) {
+		  return "High";
+	  } else if(stat < 3) {
+		  return "Low";
+	  } else {
+		  return "Average";
+	  }
   }
 }
