@@ -8,9 +8,9 @@ import items.Weapon;
 import core.Player;
 import core.Stat;
 
-public class Ninja extends Player {
+public class Shinobi extends Player {
 
-	public Ninja() {
+	public Shinobi() {
 		super();
 	}
 	

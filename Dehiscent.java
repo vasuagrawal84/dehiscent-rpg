@@ -39,8 +39,8 @@ public class Dehiscent {
     	String chosenClass = chooseClass();
 		if(chosenClass.contains("wanderer")) {
 			p = new Wanderer();
-		} else if(chosenClass.contains("ninja")) {
-			p = new Ninja();
+		} else if(chosenClass.contains("shinobi")) {
+			p = new Shinobi();
 		}
 	}
 
@@ -191,7 +191,7 @@ public class Dehiscent {
   }
     
   /**
-   * Prints a table of the classes (Wanderer, Ninja etc.) and asks one the player wants to use. 
+   * Prints a table of the classes (Wanderer, Shinobi etc.) and asks one the player wants to use. 
    * Asks if the player wants to view the items for the class and if they want to confirm the choice.
    * 
    * @return a string containing the confirmed choice of class.
@@ -202,7 +202,7 @@ public class Dehiscent {
       OutputStream realSystemOut = System.out;
       System.setOut(IO.getNullPrintStream());
 	  Player wanderer = new Wanderer();
-	  Player ninja = new Ninja();
+	  Player shinobi = new Shinobi();
 	  System.setOut(new PrintStream(realSystemOut));
 	  
 	  //Create a string that contains a new table showing the stats of the class
@@ -215,12 +215,12 @@ public class Dehiscent {
 			  checkStatLevel(wanderer.getBaseStr()), 
 			  checkStatLevel(wanderer.getBaseInt()), 
 			  checkStatLevel(wanderer.getPhysDef())) +
-	  IO.formatColumns(IO.BOX_WIDTH, true, true, "Ninja", 
-			  checkStatLevel(ninja.getBaseVit()), 
-			  checkStatLevel(ninja.getBaseDex()), 
-			  checkStatLevel(ninja.getBaseStr()), 
-			  checkStatLevel(ninja.getBaseInt()), 
-			  checkStatLevel(ninja.getPhysDef())) +
+	  IO.formatColumns(IO.BOX_WIDTH, true, true, "Shinobi", 
+			  checkStatLevel(shinobi.getBaseVit()), 
+			  checkStatLevel(shinobi.getBaseDex()), 
+			  checkStatLevel(shinobi.getBaseStr()), 
+			  checkStatLevel(shinobi.getBaseInt()), 
+			  checkStatLevel(shinobi.getPhysDef())) +
 	  IO.formatBanner(IO.BOX_WIDTH);
 	  
 	  // Confirm whether the player wants to view the starting items and if they
@@ -230,18 +230,18 @@ public class Dehiscent {
 		  
 		  String chosenClass = IO.getDecision("Choose a class... ");
 		  
-		  while(!(chosenClass.toLowerCase().contains("wanderer") || chosenClass.toLowerCase().contains("ninja"))) {
+		  while(!(chosenClass.toLowerCase().contains("wanderer") || chosenClass.toLowerCase().contains("shinobi"))) {
 			  IO.println("Class not recognised.");
 			  chosenClass = IO.getDecision("Choose a class... ");
 		  }
 		  
-		  if(IO.getAffirmative("Would you like to view " + chosenClass + "'s starting items?")) {
+		  if(IO.getAffirmative("Would you like to view " + chosenClass + "'s starting items? ")) {
 			  if(chosenClass.contains("wanderer")) {
 				  IO.println(wanderer.equippedToString());
 				  IO.println(wanderer.inventoryToString());
-			  } else if(chosenClass.contains("ninja")) {
-				  IO.println(ninja.equippedToString());
-				  IO.println(ninja.inventoryToString());
+			  } else if(chosenClass.contains("shinobi")) {
+				  IO.println(shinobi.equippedToString());
+				  IO.println(shinobi.inventoryToString());
 			  }
 		  }
 		  
