@@ -232,7 +232,7 @@ public class Dehiscent {
 		  
 		  while(!(chosenClass.toLowerCase().contains("wanderer") || chosenClass.toLowerCase().contains("ninja"))) {
 			  IO.println("Class not recognised.");
-			  IO.getDecision("Choose a class");
+			  chosenClass = IO.getDecision("Choose a class... ");
 		  }
 		  
 		  if(IO.getAffirmative("Would you like to view " + chosenClass + "'s starting items?")) {
